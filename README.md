@@ -19,6 +19,30 @@ A classic Client-Server multiplayer Quiz Application built entirely in Java. Thi
 
 ---
 
+
+
+## 📡 Network Architecture & Protocol
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Player as Client (Swing GUI)
+    participant Socket as TCP Socket
+    participant Server as Quiz Server
+    participant Handler as ClientHandler Thread
+
+    Server->>Server: ServerSocket.accept()
+    Player->>Socket: Connect to host:port
+    Socket->>Server: Connection Request
+    Server->>Handler: Spawn ClientHandler(Socket)
+    Handler-->>Player: Welcome + Question Packet
+    Player->>Handler: Submit Answer Object
+    Handler->>Handler: Validate & Calculate Score
+    Handler-->>Player: Scoreboard Broadcast & Results
+```
+
+---
+
 ## 🛠️ Tech Stack
 
 | Component | Technology |
